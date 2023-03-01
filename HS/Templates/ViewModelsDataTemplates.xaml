@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:HS.ViewModels"
+                    xmlns:v="clr-namespace:HS.Views.Pages">
+    <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
+        <v:ClientsView DataContext="{Binding}"></v:ClientsView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ReservationsViewModel}">
+        <v:ReservationsView DataContext="{Binding}"></v:ReservationsView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ReservationViewModel}">
+        <v:ReservationView DataContext="{Binding}"></v:ReservationView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:RoomsViewModel}">
+        <v:RoomsView DataContext="{Binding}"></v:RoomsView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ServicesViewModel}">
+        <v:ServicesView DataContext="{Binding}"></v:ServicesView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:StatisticsViewModel}">
+        <v:StatisticsView DataContext="{Binding}"></v:StatisticsView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:RoomTypesViewModel}">
+        <v:RoomTypesView DataContext="{Binding}"></v:RoomTypesView>
+    </DataTemplate>
+</ResourceDictionary>

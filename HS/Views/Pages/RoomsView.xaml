@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="HS.Views.Pages.RoomsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:entities="clr-namespace:HS.Context.Entities"
+             xmlns:c="clr-namespace:HS.Infrastructure.Converters"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <ListBox Grid.Column="0" Grid.Row="0" DockPanel.Dock="Top"
+                 HorizontalContentAlignment="Stretch" BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ItemTemplate="{StaticResource RoomDataTemplate}" 
+                  ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedRoom}" SelectionMode="Single"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 HorizontalAlignment="Center">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Opacity" Value="1.0"/>
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Trigger.Setters>
+                                <Setter Property="Opacity" Value="0.7"/>
+                                <Setter Property="Background" Value="DimGray"></Setter>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>            
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        
+        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
+            <StackPanel.Resources>
+                <c:UserStatusVisibilityConverter x:Key="StatusConverter"></c:UserStatusVisibilityConverter>
+                <c:UserStatusVisibility x:Key="StatusConverter2"></c:UserStatusVisibility>
+            </StackPanel.Resources>
+            <Border  BorderBrush="Black" BorderThickness="2" 
+                     Width="130" Height="400" CornerRadius="20" Margin="0 0 20 0">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Цена" FontSize="10" 
+                               Margin="0 5 5 0"
+                               HorizontalAlignment="Center"></TextBlock>
+                    
+                    <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2" Width="90" Margin="5">
+                        <TextBox Name="MinPriceTextBox" materialDesign:HintAssist.Hint="Минимальная" FontSize="10"
+                                 Text="{Binding MinPrice}"
+                                 TextChanged="MinPriceTextBox_OnTextChanged"
+                                 HorizontalContentAlignment="Center"
+                                 HorizontalAlignment="Center"></TextBox>
+                    </Border>
+                    
+                    <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2" Width="90" Margin="5"> 
+                        <TextBox Name="MaxPriceTextBox" materialDesign:HintAssist.Hint="Максимальная" FontSize="10" HorizontalContentAlignment="Center"
+                                 Text="{Binding MaxPrice}"
+                                 TextChanged="MaxPriceTextBox_OnTextChanged"
+                                 HorizontalAlignment="Center" ></TextBox>
+                    </Border>
+                    
+                    <TextBlock Text="Вместимость" FontSize="10" 
+                               Margin="0 15 20 0"
+                               HorizontalAlignment="Center"></TextBlock>
+                    
+                    <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2" Width="90" Margin="5">
+                        <TextBox Name="MinCapacityTextBox" materialDesign:HintAssist.Hint="Минимум" FontSize="10" Text="{Binding MinCapacityFilter}"
+                                 HorizontalContentAlignment="Center"
+                                 TextChanged="MinCapacityTextBox_OnTextChanged"
+                                 HorizontalAlignment="Center"></TextBox>
+                    </Border>
+                    
+                    <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2" Width="90" Margin="5">
+                        <TextBox Name="MaxCapacityTextBox" materialDesign:HintAssist.Hint="Максимум" FontSize="10" Text="{Binding MaxCapacityFilter}"
+                                 HorizontalContentAlignment="Center"
+                                 TextChanged="MaxCapacityTextBox_OnTextChanged"
+                                 HorizontalAlignment="Center"></TextBox>
+                    </Border>
+                    
+                    <TextBlock Text="Дата въезда" FontSize="10" Margin="0 15 20 0"
+                               HorizontalAlignment="Center"></TextBlock>
+                    
+                    <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2" Width="100" Margin="5"> 
+                        <DatePicker Name="ArrivalDatePicker" materialDesign:HintAssist.Hint="Въезд"  Width="90"
+                                    Background="Black"
+                                    HorizontalContentAlignment="Center" FontSize="10"
+                                    SelectedDate="{Binding ArrivalDate}"></DatePicker> 
+                    </Border>
+                    
+                    <TextBlock Text="Сколько будете у нас" FontSize="10" Margin="0 15 20 0"
+                               HorizontalAlignment="Center"></TextBlock>
+                    
+                    <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2" Width="90" Margin="5"> 
+                        <TextBox Name="PeriodsAmountTextBox" materialDesign:HintAssist.Hint="Сколько" 
+                                 FontSize="10" HorizontalContentAlignment="Center"
+                                 TextChanged="PeriodsAmountTextBox_OnTextChanged"
+                                 HorizontalAlignment="Center" Text="{Binding PeriodsAmount}"></TextBox> 
+                    </Border>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <RadioButton Content="Часов" IsChecked="{Binding IsHours}"
+                                     FontSize="10" Margin="0 0 10 0"></RadioButton>
+                        <RadioButton Content="Дней" FontSize="10" IsChecked="{Binding IsDays}"></RadioButton>
+                    </StackPanel>
+                    
+                    <Button Content="Найти" Width="80" Height="30" VerticalAlignment="Bottom"
+                            Command="{Binding ApplyFiltersCommand}"
+                            HorizontalAlignment="Center" Margin="0 5 0 0"/> 
+                    </StackPanel>
+                </Border>
+                
+                <Button Content="Забронировать" Width="90" Height="30" Margin="10" HorizontalAlignment="Center"
+                        Visibility="{Binding CurrentUser.Status.Title, 
+                                 Converter={StaticResource StatusConverter2}}"
+                        Command="{Binding MakeReservationCommand}" CommandParameter="{Binding SelectedRoom}"></Button>
+            
+            <Button Content="Бронь для клиента" Width="130" Height="30" Margin="10" 
+                    FontSize="10" HorizontalAlignment="Center"
+                    Visibility="{Binding CurrentUser.Status.Title, 
+                                 Converter={StaticResource StatusConverter}}"
+                    Command="{Binding MakeReservationForClientCommand}" CommandParameter="{Binding SelectedRoom}"></Button>
+                <TextBlock Text="* Для бронирования выберите одну из комнат *" FontSize="10" 
+                           HorizontalAlignment="Center" Foreground="DarkGray"
+                           TextWrapping="Wrap"></TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

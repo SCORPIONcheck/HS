@@ -1,0 +1,46 @@
+﻿<Window x:Class="Hotel.Views.Windows.SignUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        DataContext="{Binding SignUpViewModel, Source={StaticResource Locator}}"
+        mc:Ignorable="d"
+        Title="Sign Up" Height="550" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Control" Key="Q" 
+                    Command="{StaticResource CloseAppCommand}"/>
+    </Window.InputBindings>
+    <StackPanel Margin="5" VerticalAlignment="Center"
+                Width="300">
+        <TextBlock FontSize="20" Text="Rievierra"></TextBlock>
+        <TextBlock FontSize="10" Text="Хотите зарегистрироваться?"></TextBlock>
+        <TextBlock Foreground="DarkGray" FontSize="10" Text="Зарегистрируйтесь, чтобы продолжить"></TextBlock>
+        
+        <StackPanel Margin="0 10 0 0">
+            <TextBox md:HintAssist.Hint="Фамилия" FontSize="10" Width="220" Text="{Binding Surname}"
+                     Margin="0 20 0 5"></TextBox>
+            <TextBox md:HintAssist.Hint="Имя" FontSize="10" Width="220" Text="{Binding Name}"
+                     Margin="0 0 0 5"></TextBox>
+            <TextBox md:HintAssist.Hint="Отчество" FontSize="10" Width="220" Text="{Binding Patronymic}"
+                     Margin="0 0 0 5"></TextBox>
+            <TextBox md:HintAssist.Hint="Документ" FontSize="10" Width="220" Text="{Binding Passport}"
+                     Margin="0 0 0 5"></TextBox>
+            <TextBox md:HintAssist.Hint="Номер телефона" FontSize="10" Width="220" Text="{Binding PhoneNumber}"
+                     Margin="0 0 0 5"></TextBox>
+            
+            <TextBox md:HintAssist.Hint="Логин" FontSize="10" Width="220" Text="{Binding Login}"
+                     Margin="0 30 0 10" ></TextBox>
+            <TextBox md:HintAssist.Hint="Пароль" FontSize="10" Width="220" Margin="0 0 0 10"
+                     Text="{Binding Password}"></TextBox>
+            <TextBox md:HintAssist.Hint="Повторите пароль" FontSize="10" Width="220" Margin="0 0 0 10"
+                     Text="{Binding PasswordConfirm}"></TextBox>
+            
+            <TextBlock Text="{Binding SignUpStatus}" FontSize="15" HorizontalAlignment="Center"
+                       Foreground="{Binding MessageColor}"></TextBlock>
+            
+            <Button Command="{Binding SignUpCommand}" Width="190" Margin="0 30 0 0" 
+                    FontSize="15" Content="Регистрация" Height="30" Foreground="WhiteSmoke"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
